@@ -10,8 +10,6 @@ const { logger, logEvents } = require("./middleware/logger");
 const { errorHandler } = require("./middleware/errorHandler");
 const corsOptions = require("./config/corsOptions");
 
-const User = require("./models/User");
-const Note = require("./models/Note");
 const app = express();
 const PORT = process.env.PORT || 3500;
 

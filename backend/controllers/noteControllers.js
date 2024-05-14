@@ -1,5 +1,5 @@
 const Note = require("../models/Note");
-const User = require("../models/User");
+//const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 // @desc Get all notes
 // @route GET /notes
@@ -76,6 +76,6 @@ exports.deleteNote = asyncHandler(async (req, res, next) => {
   }
   const removedNote = await Note.findByIdAndDelete(id);
 
-  res.json({ message: `${note.title} deleted` });
+  res.json({ message: `${removedNote.title} deleted` });
 });
 // add eslint to project
