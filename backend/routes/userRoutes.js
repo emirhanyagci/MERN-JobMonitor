@@ -8,7 +8,7 @@ const {
 } = require("../controllers/userControllers");
 
 router
-  .route("/users")
+  .route("/")
   .get(getAllUser)
   .post(createNewUser)
   .patch(uptadeUser)

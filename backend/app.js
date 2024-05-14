@@ -24,7 +24,8 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   next();
 });
-app.use(require("./routes/userRoutes"));
+app.use("/users", require("./routes/userRoutes"));
+app.use("/notes", require("./routes/noteRoutes"));
 app.all("*", (req, res) => {
   res.status(404).json({
     message: "404 Not Found",
