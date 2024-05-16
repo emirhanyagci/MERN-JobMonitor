@@ -6,6 +6,7 @@ import Dash from "@/pages/Dash";
 import Users from "@/pages/Users";
 import DashLayout from "@/components/DashLayout";
 import EditUser from "./features/users/EditUser";
+import EditNote from "./features/notes/EditNote";
 function App() {
   return (
     <ThemeProvider defaultTheme="dark">
@@ -13,8 +14,12 @@ function App() {
         <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />}></Route>
           <Route path="dash" element={<DashLayout />}>
-            <Route index element={<Dash />}></Route>
+            <Route path="notes" element={<Dash />}>
+              // this route for modal
+              <Route path=":noteId" element={<EditNote />}></Route>
+            </Route>
             <Route path="users" element={<Users />}>
+              // this route for modal
               <Route path=":userId" element={<EditUser />}></Route>
             </Route>
           </Route>

@@ -3,11 +3,13 @@ import NavBar from "@/components/NavBar";
 import SideBar from "./SideBar";
 export default function DashLayout() {
   return (
-    <div className="flex">
+    <div className="h-svh flex">
       <SideBar />
-      <div className="w-full">
+      <div className="h-full w-full">
         <NavBar />
-        <Outlet />
+        <div className="h-full overflow-auto ">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

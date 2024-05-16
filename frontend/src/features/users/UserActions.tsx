@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-export default function TableActions({ user }: { user: User }) {
+export default function UserActions({ user }: { user: User }) {
   const navigate = useNavigate();
   return (
     <DropdownMenu>
@@ -23,7 +23,11 @@ export default function TableActions({ user }: { user: User }) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-        <DropdownMenuItem onClick={() => navigate(user.id)}>
+        <DropdownMenuItem
+          onClick={() =>
+            navigate(user.id, { state: { user, isEditing: true } })
+          }
+        >
           Edit User
         </DropdownMenuItem>
         <DropdownMenuSeparator />

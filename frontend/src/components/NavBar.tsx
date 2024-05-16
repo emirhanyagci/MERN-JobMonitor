@@ -28,7 +28,7 @@ export default function NavBar() {
             <SheetDescription asChild>
               <div className="flex flex-col gap-2 ">
                 <Button variant="secondary" className="text-lg" asChild>
-                  <Link to="/dash">Jobs</Link>
+                  <Link to="notes">Jobs</Link>
                 </Button>
                 <Button variant="ghost" className="text-lg " asChild>
                   <Link to="users">Users</Link>

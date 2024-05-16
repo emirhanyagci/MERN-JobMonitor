@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Payment, columns } from "./columns";
+import { Note, columns } from "./columns";
 import { DataTable } from "@/components/DataTable";
 
 // async function getData(): Promise<Payment[]> {
@@ -26,7 +26,7 @@ import { DataTable } from "@/components/DataTable";
 // }
 
 export default function NotesTable() {
-  const data: Payment[] = [
+  const data: Note[] = [
     {
       id: "728ed52f",
       status: "pending",

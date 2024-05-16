@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { User, columns } from "./columns";
 import { DataTable } from "@/components/DataTable";
+import { useNavigate } from "react-router-dom";
 
 // async function getData(): Promise<Payment[]> {
 //   return [
@@ -26,6 +27,7 @@ import { DataTable } from "@/components/DataTable";
 // }
 
 export default function NotesTable() {
+  const navigate = useNavigate();
   const data: User[] = [
     {
       id: "728ed52f",
@@ -37,7 +39,11 @@ export default function NotesTable() {
   return (
     <div className="container mx-auto py-10 space-y-3">
       <div className="flex justify-end">
-        <Button>Add User</Button>
+        <Button
+          onClick={() => navigate("add-user", { state: { isEditing: false } })}
+        >
+          Add User
+        </Button>
       </div>
       <DataTable columns={columns} data={data} />
     </div>

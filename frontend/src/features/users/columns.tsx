@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
-import TableActions from "./TableActions";
+import UserActions from "./UserActions";
 
-type Roles = "Employee" | "Manager" | "Admin";
+export type Roles = "Employee" | "Manager" | "Admin";
 export type User = {
   id: string;
   username: string;
@@ -23,9 +23,7 @@ export const columns: ColumnDef<User>[] = [
     header: "Actions",
     cell: ({ row }) => {
       const user = row.original;
-      console.log(user.id);
-
-      return <TableActions user={user} />;
+      return <UserActions user={user} />;
     },
   },
 ];
