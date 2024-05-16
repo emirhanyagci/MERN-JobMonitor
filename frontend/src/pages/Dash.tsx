@@ -1,3 +1,9 @@
+import NotesTable from "@/features/notes/NotesTable";
+
 export default function Dash() {
-  return <main className="">Dash</main>;
+  return (
+    <main>
+      <NotesTable />
+    </main>
+  );
 }

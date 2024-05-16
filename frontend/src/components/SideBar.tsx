@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 
 export default function SideBar() {
@@ -7,8 +8,12 @@ export default function SideBar() {
         Job Monitor
       </header>
       <div className="flex flex-col gap-2 ">
-        <Button className="text-base">Jobs</Button>
-        <Button className="text-base">Users</Button>
+        <Button variant="secondary" className="text-base" asChild>
+          <Link to="/dash">Jobs</Link>
+        </Button>
+        <Button variant="secondary" className="text-base" asChild>
+          <Link to="users">Users</Link>
+        </Button>
       </div>
     </aside>
   );

@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Link } from "react-router-dom";
 export default function NavBar() {
   return (
     <nav className="w-full p-3 flex justify-between border-b md:justify-end">
@@ -26,8 +27,12 @@ export default function NavBar() {
             </SheetTitle>
             <SheetDescription asChild>
               <div className="flex flex-col gap-2 ">
-                <Button className="text-lg">Jobs</Button>
-                <Button className="text-lg ">Users</Button>
+                <Button variant="secondary" className="text-lg" asChild>
+                  <Link to="/dash">Jobs</Link>
+                </Button>
+                <Button variant="ghost" className="text-lg " asChild>
+                  <Link to="users">Users</Link>
+                </Button>
               </div>
             </SheetDescription>
           </SheetHeader>
