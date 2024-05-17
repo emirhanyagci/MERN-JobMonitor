@@ -24,7 +24,9 @@ export default function NoteActions({ note }: { note: Note }) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
         <DropdownMenuItem
-          onClick={() => navigate(note.id, { state: { note } })}
+          onClick={() =>
+            navigate(note.id, { state: { note, isEditing: true } })
+          }
         >
           Edit User
         </DropdownMenuItem>

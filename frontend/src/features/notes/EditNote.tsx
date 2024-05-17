@@ -10,12 +10,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLocation, useNavigate } from "react-router-dom";
+import UserOptions from "./UserOptions";
+import { Switch } from "@/components/ui/switch";
 
 export default function EditNote() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { note } = state;
-  console.log(note);
+  const isEditing = state.isEditing;
+  const note = state.note || null;
 
   function openChangeHandler(open: boolean) {
     open ? null : navigate("..");
@@ -24,30 +26,45 @@ export default function EditNote() {
     <Dialog defaultOpen={true} onOpenChange={openChangeHandler}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit User</DialogTitle>
+          <DialogTitle>{isEditing ? "Edit" : "Add"} Note</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            {isEditing
+              ? "Add new note here. Click save when you're done."
+              : "Edit not here. Click save when you're done."}
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
+            <UserOptions currentUser={!isEditing ? undefined : note.user} />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="title" className="text-right">
+              Title
             </Label>
             <Input
-              id="name"
-              defaultValue="Pedro Duarte"
+              id="title"
+              defaultValue={isEditing ? note.title : "Title of note"}
               className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
+            <Label htmlFor="text" className="text-right">
+              Text
             </Label>
             <Input
-              id="username"
-              defaultValue="@peduarte"
+              id="text"
+              defaultValue={isEditing ? note.text : "Text of note.."}
               className="col-span-3"
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="active" className="text-right">
+              Active
+            </Label>
+            <Switch
+              id="active"
+              defaultChecked={isEditing ? note.completed : false}
+              disabled={!isEditing}
             />
           </div>
         </div>

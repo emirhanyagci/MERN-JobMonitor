@@ -14,7 +14,7 @@ import { Roles } from "./columns";
 
 import RoleOptions from "./RoleOptions";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function EditUser() {
   const [roles, setRoles] = useState<Roles[]>([]);
   const navigate = useNavigate();
@@ -22,7 +22,11 @@ export default function EditUser() {
 
   const isEditing = state.isEditing;
   const user = state.user || null;
-  console.log(user);
+
+  useEffect(() => {
+    if (!isEditing) return;
+    setRoles([...user.roles]);
+  }, []);
 
   function openChangeHandler(open: boolean) {
     open ? null : navigate("..");
@@ -46,7 +50,7 @@ export default function EditUser() {
             </Label>
             <Input
               id="username"
-              defaultValue="emirhanyac"
+              defaultValue={isEditing ? user.username : "username"}
               className="col-span-3"
             />
           </div>
@@ -60,12 +64,16 @@ export default function EditUser() {
             <Label htmlFor="active" className="text-right">
               Active
             </Label>
-            <Switch id="active" />
+            <Switch
+              id="active"
+              defaultChecked={isEditing ? user.active : false}
+              disabled={!isEditing}
+            />
           </div>
         </div>
         <DialogFooter>
           <Button type="submit">
-            {isEditing ? "Save changes" : "Add User"}
+            {isEditing ? "Save changes" : "Save user"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -10,3 +10,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </BrowserRouter>
   </React.StrictMode>
 );
+// formlarda edit modesa formu degerlerle doldur
+// react forma gecebilirsin

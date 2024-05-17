@@ -31,8 +31,9 @@ export default function NotesTable() {
   const data: User[] = [
     {
       id: "728ed52f",
-      username: "pending",
+      username: "emirhanyac",
       roles: ["Employee", "Manager"],
+      active: true,
     },
   ];
 

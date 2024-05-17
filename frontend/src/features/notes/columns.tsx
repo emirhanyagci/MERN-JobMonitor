@@ -1,17 +1,19 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 import NoteActions from "./NoteActions";
+import { User } from "../users/columns";
 export type Note = {
   id: string;
-  status: "pending" | "processing" | "success" | "failed";
-  created: string;
+  user: User;
   title: string;
-  owner: string;
+  text: string;
+  completed: boolean;
+  created: string;
 };
 
 export const columns: ColumnDef<Note>[] = [
   {
-    accessorKey: "status",
+    accessorKey: "completed",
     header: "Status",
   },
   {

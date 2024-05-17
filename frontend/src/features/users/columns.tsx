@@ -6,6 +6,7 @@ export type User = {
   id: string;
   username: string;
   roles: Roles[];
+  active: boolean;
 };
 
 export const columns: ColumnDef<User>[] = [
