@@ -16,3 +16,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 );
 // formlarda edit modesa formu degerlerle doldur
 // react forma gecebilirsin
+// edit islemlerinde route params gonderme edit ile add ayni routeda olsun
+// sutunlari parse et orn status true ise completed olacak

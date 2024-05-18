@@ -8,30 +8,58 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@radix-ui/react-label";
 import { User } from "../users/columns";
+import { useGetUsersQuery } from "../users/userApi";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 export default function UserOptions({
   currentUser,
+  setUserId,
 }: {
   currentUser: User | undefined;
+  setUserId: (id: string) => void;
 }) {
-  console.log(currentUser);
+  const { data: users, isSuccess, isLoading, isError } = useGetUsersQuery();
+  let mappedUsers;
 
+  if (isSuccess) {
+    mappedUsers = users.map(({ _id, username }) => {
+      return { id: _id, username };
+    });
+  }
+  if (isError) {
+    // handle this case
+  }
+  function selectHandler(selected: string) {
+    setUserId(selected);
+  }
+  if (isLoading) {
+    return (
+      <>
+        <Label htmlFor="username" className="text-right text-sm">
+          Username
+        </Label>
+        <LoadingSpinner />
+      </>
+    );
+  }
   return (
     <>
-      <Label htmlFor="username" className="text-right">
+      <Label htmlFor="username" className="text-right text-sm">
         Username
       </Label>
-
-      <Select defaultValue="emirhanid">
+      <Select
+        onValueChange={selectHandler}
+        defaultValue={currentUser ? currentUser._id : ""}
+      >
         <SelectTrigger className="col-span-3 ">
           <SelectValue placeholder="Select a user" />
         </SelectTrigger>
         <SelectContent className="col-span-3">
           <SelectGroup>
-            <SelectItem value="emirhanid">Emirhan</SelectItem>
-            <SelectItem value="banana">Kadir</SelectItem>
-            <SelectItem value="blueberry">Alp</SelectItem>
-            <SelectItem value="grapes">Burak</SelectItem>
-            <SelectItem value="pineapple">Yac</SelectItem>
+            {mappedUsers?.map((user) => (
+              <SelectItem key={user.id} value={user.id}>
+                {user.username}
+              </SelectItem>
+            ))}
           </SelectGroup>
         </SelectContent>
       </Select>

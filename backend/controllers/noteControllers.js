@@ -6,7 +6,7 @@ const asyncHandler = require("express-async-handler");
 // @access Private
 
 exports.getAllNotes = asyncHandler(async (req, res, next) => {
-  const notes = await Note.find();
+  const notes = await Note.find().populate("user");
   if (!notes.length) {
     return res.status(400).json({
       message: "No note found ",

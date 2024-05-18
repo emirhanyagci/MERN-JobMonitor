@@ -49,6 +49,7 @@ exports.createNewUser = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.uptadeUser = asyncHandler(async (req, res, next) => {
   const { id, username, roles, active, password } = req.body;
+  console.log(id, username, roles, active);
   if (
     !id ||
     !username ||
@@ -89,6 +90,7 @@ exports.uptadeUser = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.deleteUser = asyncHandler(async (req, res, next) => {
   const { id } = req.body;
+  console.log(id);
   if (!id) {
     return res.status(400).json({ message: "Id is required" });
   }

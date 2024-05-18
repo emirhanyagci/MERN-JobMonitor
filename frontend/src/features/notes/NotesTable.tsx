@@ -39,8 +39,15 @@ export default function NotesTable() {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
   });
-
   const navigate = useNavigate();
+
+  // if (notes?.length) {
+  //   parsedNotes = notes.map((note: Note) => {
+  //     const readableDate = new Date(note.createdAt).toLocaleDateString("en-US");
+  //     return { ...note, createdAt: readableDate };
+  //   });
+  // }
+
   if (isLoading) {
     return (
       <div className="flex justify-center py-5">

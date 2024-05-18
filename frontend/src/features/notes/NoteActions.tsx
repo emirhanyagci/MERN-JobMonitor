@@ -10,8 +10,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Note } from "./columns";
+import { useDeleteNoteMutation } from "./noteApi";
 export default function NoteActions({ note }: { note: Note }) {
   const navigate = useNavigate();
+  const [deleteNote] = useDeleteNoteMutation();
+  function deleteHandler() {
+    deleteNote({ id: note._id }).catch((err) => {
+      console.log(err);
+    });
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,10 +35,10 @@ export default function NoteActions({ note }: { note: Note }) {
             navigate(note._id, { state: { note, isEditing: true } })
           }
         >
-          Edit User
+          Edit Note
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Delete User</DropdownMenuItem>
+        <DropdownMenuItem onClick={deleteHandler}>Delete Note</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

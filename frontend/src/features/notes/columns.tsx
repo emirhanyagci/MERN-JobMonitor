@@ -8,7 +8,7 @@ export type Note = {
   title: string;
   text: string;
   completed: boolean;
-  created: string;
+  createdAt: string;
 };
 
 export const columns: ColumnDef<Note>[] = [
@@ -17,15 +17,20 @@ export const columns: ColumnDef<Note>[] = [
     header: "Status",
   },
   {
-    accessorKey: "created",
+    accessorKey: "createdAt",
     header: "Created",
+    cell: ({ row }) => {
+      const data = row.original;
+      const readableDate = new Date(data.createdAt).toLocaleDateString("en-US");
+      return <span className="tracking-wider">{readableDate}</span>;
+    },
   },
   {
     accessorKey: "title",
     header: "Title",
   },
   {
-    accessorKey: "owner",
+    accessorKey: "user.username",
     header: "Owner",
   },
   {

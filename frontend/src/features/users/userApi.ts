@@ -14,7 +14,10 @@ export const userApi = createApi({
       // edit providedTags for specific tagf for each note
       providesTags: (result) =>
         result
-          ? result.map(({ _id }) => ({ type: "users", id: _id }))
+          ? result.map(({ _id }: { _id: string }) => ({
+              type: "users",
+              id: _id,
+            }))
           : ["users"],
     }),
     addNewUser: builder.mutation({
