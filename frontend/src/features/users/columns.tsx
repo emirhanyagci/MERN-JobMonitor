@@ -3,7 +3,7 @@ import UserActions from "./UserActions";
 
 export type Roles = "Employee" | "Manager" | "Admin";
 export type User = {
-  id: string;
+  _id: string;
   username: string;
   roles: Roles[];
   active: boolean;

@@ -25,7 +25,7 @@ export default function NoteActions({ note }: { note: Note }) {
 
         <DropdownMenuItem
           onClick={() =>
-            navigate(note.id, { state: { note, isEditing: true } })
+            navigate(note._id, { state: { note, isEditing: true } })
           }
         >
           Edit User

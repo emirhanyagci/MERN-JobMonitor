@@ -25,7 +25,7 @@ export default function UserActions({ user }: { user: User }) {
 
         <DropdownMenuItem
           onClick={() =>
-            navigate(user.id, { state: { user, isEditing: true } })
+            navigate(user._id, { state: { user, isEditing: true } })
           }
         >
           Edit User

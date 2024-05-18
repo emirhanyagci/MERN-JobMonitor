@@ -3,7 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import NoteActions from "./NoteActions";
 import { User } from "../users/columns";
 export type Note = {
-  id: string;
+  _id: string;
   user: User;
   title: string;
   text: string;
