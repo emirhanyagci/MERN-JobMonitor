@@ -15,8 +15,14 @@ import { Roles } from "./columns";
 import RoleOptions from "./RoleOptions";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAddNewUserMutation, useUpdateUserMutation } from "./userApi";
 export default function EditUser() {
   const [roles, setRoles] = useState<Roles[]>([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [active, setActive] = useState(false);
+  const [addUser] = useAddNewUserMutation();
+  const [updatedUser] = useUpdateUserMutation();
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -26,12 +32,32 @@ export default function EditUser() {
   useEffect(() => {
     if (!isEditing) return;
     setRoles([...user.roles]);
+    setActive(user.active);
+    setUsername(user.username);
   }, []);
 
   function openChangeHandler(open: boolean) {
     open ? null : navigate("..");
   }
-
+  function saveHandler() {
+    if (isEditing) {
+      updatedUser({ id: user._id, roles, username, active, password })
+        .then(() => {
+          navigate("..");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      addUser({ username, password, roles })
+        .then(() => {
+          navigate("..");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
   return (
     <Dialog defaultOpen={true} onOpenChange={openChangeHandler}>
       <DialogContent className="sm:max-w-[425px]">
@@ -49,11 +75,29 @@ export default function EditUser() {
               Username
             </Label>
             <Input
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
               id="username"
-              defaultValue={isEditing ? user.username : "username"}
               className="col-span-3"
             />
           </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="password" className="text-right">
+              Password
+            </Label>
+            <Input
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              id="password"
+              className="col-span-3"
+            />
+          </div>
+
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right">Roles</Label>
             <div className="flex gap-3">
@@ -65,6 +109,8 @@ export default function EditUser() {
               Active
             </Label>
             <Switch
+              checked={active}
+              onCheckedChange={() => setActive((a) => !a)}
               id="active"
               defaultChecked={isEditing ? user.active : false}
               disabled={!isEditing}
@@ -72,7 +118,7 @@ export default function EditUser() {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">
+          <Button type="submit" onClick={saveHandler}>
             {isEditing ? "Save changes" : "Save user"}
           </Button>
         </DialogFooter>

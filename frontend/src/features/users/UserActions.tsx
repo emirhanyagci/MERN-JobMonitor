@@ -10,8 +10,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useDeleteUserMutation } from "./userApi";
 export default function UserActions({ user }: { user: User }) {
   const navigate = useNavigate();
+  const [deleteUser] = useDeleteUserMutation();
+  function deleteHandler() {
+    deleteUser({ id: user._id }).catch((err) => {
+      console.log(err);
+    });
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,7 +38,7 @@ export default function UserActions({ user }: { user: User }) {
           Edit User
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Delete User</DropdownMenuItem>
+        <DropdownMenuItem onClick={deleteHandler}>Delete User</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
