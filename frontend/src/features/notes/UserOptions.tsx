@@ -13,6 +13,8 @@ export default function UserOptions({
 }: {
   currentUser: User | undefined;
 }) {
+  console.log(currentUser);
+
   return (
     <>
       <Label htmlFor="username" className="text-right">
