@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { columns } from "./columns";
+import { columns, User } from "./columns";
 import { DataTable } from "@/components/DataTable";
 import { useNavigate } from "react-router-dom";
 import { useGetUsersQuery } from "./userApi";
@@ -11,7 +11,7 @@ export default function NotesTable() {
     data: users,
     isLoading,
     isError,
-  } = useGetUsersQuery({
+  } = useGetUsersQuery(undefined, {
     pollingInterval: 15000,
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
@@ -37,7 +37,7 @@ export default function NotesTable() {
           Add User
         </Button>
       </div>
-      <DataTable columns={columns} data={users} />
+      <DataTable columns={columns} data={users as User[]} />
     </div>
   );
 }
