@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   next();
 });
+app.use("/auth", require("./routes/authRoutes"));
 app.use("/users", require("./routes/userRoutes"));
 app.use("/notes", require("./routes/noteRoutes"));
 app.all("*", (req, res) => {
