@@ -33,9 +33,7 @@ app.all("*", (req, res) => {
 app.use(errorHandler);
 
 mongoose
-  .connect(
-    "mongodb+srv://emirhanyac2:4Pm6edLMmeXSNzxq@cluster0.ui1t4xu.mongodb.net/CompanyDB?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     app.listen(PORT, () => {
       console.log("Server running on port " + PORT);
