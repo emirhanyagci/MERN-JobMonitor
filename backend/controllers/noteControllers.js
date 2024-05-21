@@ -20,6 +20,7 @@ exports.getAllNotes = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.createNewNote = asyncHandler(async (req, res, next) => {
   const { user, title, text } = req.body;
+  console.log(user, title, text);
   if (!user || !title || !text) {
     return res.status(400).json({ message: "All fields are required" });
   }

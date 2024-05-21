@@ -15,6 +15,15 @@ export const columns: ColumnDef<Note>[] = [
   {
     accessorKey: "completed",
     header: "Status",
+    cell: ({ row }) => {
+      const { completed } = row.original;
+
+      return (
+        <span className="tracking-wider">
+          {completed ? "Completed" : "Pending"}
+        </span>
+      );
+    },
   },
   {
     accessorKey: "createdAt",

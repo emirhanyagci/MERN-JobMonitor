@@ -32,7 +32,7 @@ export default function UserActions({ user }: { user: User }) {
 
         <DropdownMenuItem
           onClick={() =>
-            navigate(user._id, { state: { user, isEditing: true } })
+            navigate("edit-user", { state: { user, isEditing: true } })
           }
         >
           Edit User

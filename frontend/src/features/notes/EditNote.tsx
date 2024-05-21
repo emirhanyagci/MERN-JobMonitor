@@ -14,6 +14,7 @@ import UserOptions from "./UserOptions";
 import { Switch } from "@/components/ui/switch";
 import { useAddNoteMutation, useUpdateNoteMutation } from "./noteApi";
 import { useEffect, useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function EditNote() {
   const [userId, setUserId] = useState("");
@@ -49,7 +50,9 @@ export default function EditNote() {
           console.log(err);
         });
     } else {
-      addNote({ userId, title, text })
+      console.log(text);
+
+      addNote({ user: userId, title, text })
         .then(() => {
           navigate("..");
         })
@@ -91,16 +94,17 @@ export default function EditNote() {
             <Label htmlFor="text" className="text-right">
               Text
             </Label>
-            <Input
+            <Textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
+              maxLength={300}
               id="text"
-              className="col-span-3"
+              className="col-span-3 max-h-64"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="active" className="text-right">
-              Active
+              Completed
             </Label>
             <Switch
               checked={completed}

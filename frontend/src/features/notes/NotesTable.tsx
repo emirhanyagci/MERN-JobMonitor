@@ -63,7 +63,7 @@ export default function NotesTable() {
     <div className="container mx-auto py-10 space-y-3">
       <div className="flex justify-end">
         <Button
-          onClick={() => navigate("add-note", { state: { isEditing: false } })}
+          onClick={() => navigate("edit-note", { state: { isEditing: false } })}
         >
           Add Note
         </Button>

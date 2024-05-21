@@ -32,7 +32,7 @@ export default function NoteActions({ note }: { note: Note }) {
 
         <DropdownMenuItem
           onClick={() =>
-            navigate(note._id, { state: { note, isEditing: true } })
+            navigate("edit-note", { state: { note, isEditing: true } })
           }
         >
           Edit Note
