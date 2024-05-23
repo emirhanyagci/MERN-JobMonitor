@@ -10,8 +10,17 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "@/features/auth/authApi";
+import { useEffect } from "react";
+import { LoadingSpinner } from "./LoadingSpinner";
 export default function NavBar() {
+  const navigate = useNavigate();
+  const [logout, { isLoading, isSuccess, isError }] = useLogoutMutation();
+
+  useEffect(() => {
+    if (isSuccess) navigate("/");
+  }, [isSuccess]);
   return (
     <nav className="w-full p-3 flex justify-between border-b md:justify-end">
       <Sheet>
@@ -38,8 +47,8 @@ export default function NavBar() {
           </SheetHeader>
         </SheetContent>
       </Sheet>
-      <Button variant="ghost" className="text-md">
-        <LogOut />
+      <Button onClick={logout} variant="ghost" className="text-md">
+        {isLoading ? <LoadingSpinner /> : isError ? "Failed" : <LogOut />}
       </Button>
     </nav>
   );

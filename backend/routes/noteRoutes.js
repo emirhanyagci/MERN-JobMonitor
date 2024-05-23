@@ -7,7 +7,9 @@ const {
   updateNote,
 } = require("../controllers/noteControllers");
 const verifyJWT = require("../middleware/verifyJWT");
+// all note operates required to be authed
 router.use(verifyJWT);
+
 router
   .route("/")
   .get(getAllNotes)

@@ -9,7 +9,7 @@ const asyncHandler = require("express-async-handler");
 exports.login = asyncHandler(async (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return res.json({
+    return res.status(400).json({
       message: "All fields are required",
     });
   }
@@ -75,10 +75,8 @@ exports.refresh = asyncHandler(async (req, res, next) => {
 
       const accessToken = jwt.sign(
         {
-          UserInfo: {
-            username: foundUser.username,
-            roles: foundUser.roles,
-          },
+          username: foundUser.username,
+          roles: foundUser.roles,
         },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "15m" }

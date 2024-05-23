@@ -11,6 +11,8 @@ export default function NotesTable() {
     data: users,
     isLoading,
     isError,
+    error,
+    isSuccess,
   } = useGetUsersQuery(undefined, {
     pollingInterval: 15000,
     refetchOnMountOrArgChange: true,
@@ -26,8 +28,19 @@ export default function NotesTable() {
     );
   }
   if (isError) {
+    let errorMessage = "Somethink went wrong";
+    console.log(error);
+
+    if ("status" in error && (error.status === 400 || error.status === 401)) {
+      errorMessage = (error as { data: { message: string } }).data.message;
+    }
+    return <ErrorMessage message={errorMessage} />;
+  }
+
+  if (!isSuccess) {
     return <ErrorMessage message="Somethink went wrong" />;
   }
+
   return (
     <div className="container mx-auto py-10 space-y-3">
       <div className="flex justify-end">
