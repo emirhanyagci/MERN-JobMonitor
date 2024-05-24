@@ -16,10 +16,12 @@ import { useLoginMutation } from "./authApi";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
 import { useNavigate } from "react-router-dom";
+import usePersist from "./usePersist";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const [persist, setPersist] = usePersist();
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ export default function Login() {
 
       if (err.status === 400 || err.status === 401) {
         setErrMsg(err.data.message);
-      } else setErrMsg("Somethink went wrong");
+      } else setErrMsg("Something went wrong");
     }
   }
   return (
@@ -79,7 +81,11 @@ export default function Login() {
           />
         </div>
         <div className="flex items-center gap-2">
-          <Checkbox id="trust" />
+          <Checkbox
+            checked={persist}
+            onCheckedChange={() => setPersist((p: boolean) => !p)}
+            id="trust"
+          />
           <Label htmlFor="trust">Trust this device</Label>
         </div>
       </CardContent>

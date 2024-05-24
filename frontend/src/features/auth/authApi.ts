@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { noteApi } from "../notes/noteApi";
 import { userApi } from "../users/userApi";
-import { logOut } from "./authSlice";
+import { logOut, setCredentials } from "./authSlice";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_BASE_URL}/auth`,
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     login: builder.mutation({
@@ -24,8 +25,10 @@ export const authApi = createApi({
         try {
           await queryFulfilled;
           dispatch(logOut());
-          dispatch(noteApi.util.resetApiState());
-          dispatch(userApi.util.resetApiState());
+          setTimeout(() => {
+            dispatch(noteApi.util.resetApiState());
+            dispatch(userApi.util.resetApiState());
+          }, 1000);
         } catch (err) {
           console.log(err);
         }
@@ -36,6 +39,15 @@ export const authApi = createApi({
         url: "/refresh",
         method: "GET",
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          const { accessToken } = data;
+          dispatch(setCredentials(accessToken));
+        } catch (err) {
+          console.log(err);
+        }
+      },
     }),
   }),
 });

@@ -31,14 +31,17 @@ export default function NotesTable() {
     let errorMessage = "Somethink went wrong";
     console.log(error);
 
-    if ("status" in error && (error.status === 400 || error.status === 401)) {
+    if (
+      "status" in error &&
+      (error.status === 400 || error.status === 401 || error.status === 403)
+    ) {
       errorMessage = (error as { data: { message: string } }).data.message;
     }
     return <ErrorMessage message={errorMessage} />;
   }
 
   if (!isSuccess) {
-    return <ErrorMessage message="Somethink went wrong" />;
+    return <ErrorMessage message="Something went wrong" />;
   }
 
   return (

@@ -11,8 +11,10 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Note } from "./columns";
 import { useDeleteNoteMutation } from "./noteApi";
+import useAuth from "../auth/useAuth";
 export default function NoteActions({ note }: { note: Note }) {
   const navigate = useNavigate();
+  const { isAdmin, isManager } = useAuth();
   const [deleteNote] = useDeleteNoteMutation();
   function deleteHandler() {
     deleteNote({ id: note._id }).catch((err) => {
@@ -37,8 +39,15 @@ export default function NoteActions({ note }: { note: Note }) {
         >
           Edit Note
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={deleteHandler}>Delete Note</DropdownMenuItem>
+
+        {(isAdmin || isManager) && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={deleteHandler}>
+              Delete Note
+            </DropdownMenuItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

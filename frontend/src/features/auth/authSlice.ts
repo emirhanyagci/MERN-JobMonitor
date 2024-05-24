@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import type { RootState } from "@/app/store";
 
 export const authSlice = createSlice({
@@ -9,6 +10,7 @@ export const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       const accessToken = action.payload;
+      console.log(accessToken);
 
       state.token = accessToken;
     },

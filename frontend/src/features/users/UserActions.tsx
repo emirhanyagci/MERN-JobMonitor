@@ -14,6 +14,7 @@ import { useDeleteUserMutation } from "./userApi";
 export default function UserActions({ user }: { user: User }) {
   const navigate = useNavigate();
   const [deleteUser] = useDeleteUserMutation();
+
   function deleteHandler() {
     deleteUser({ id: user._id }).catch((err) => {
       console.log(err);

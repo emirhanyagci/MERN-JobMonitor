@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { columns } from "./columns";
+import { columns, Note } from "./columns";
 import { DataTable } from "@/components/DataTable";
 import { useNavigate } from "react-router-dom";
 import { useGetNotesQuery } from "./noteApi";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import ErrorMessage from "@/components/ErrorMessage";
+import useAuth from "../auth/useAuth";
 
 // async function getData(): Promise<Payment[]> {
 //   return [
@@ -41,6 +42,7 @@ export default function NotesTable() {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
   });
+  const { username, isAdmin, isManager } = useAuth();
   const navigate = useNavigate();
 
   // if (notes?.length) {
@@ -49,7 +51,6 @@ export default function NotesTable() {
   //     return { ...note, createdAt: readableDate };
   //   });
   // }
-  console.log(error);
 
   if (isLoading) {
     return (
@@ -59,14 +60,23 @@ export default function NotesTable() {
     );
   }
   if (isError) {
-    let errorMessage = "Somethink went wrong";
-    if ("status" in error && (error.status === 400 || error.status === 401)) {
+    let errorMessage = "Something went wrong";
+    if (
+      "status" in error &&
+      (error.status === 400 || error.status === 401 || error.status === 403)
+    ) {
       errorMessage = (error as { data: { message: string } }).data.message;
     }
     return <ErrorMessage message={errorMessage} />;
   }
   if (!isSuccess) {
-    return <ErrorMessage message="Somethink went wrong" />;
+    return <ErrorMessage message="Something went wrong" />;
+  }
+  let filteredNotes = notes;
+  if (!isAdmin && !isManager) {
+    filteredNotes = notes.filter((note: Note) => {
+      return username === note.user.username;
+    });
   }
   return (
     <div className="container mx-auto py-10 space-y-3">
@@ -77,7 +87,7 @@ export default function NotesTable() {
           Add Note
         </Button>
       </div>
-      <DataTable columns={columns} data={notes} />
+      <DataTable columns={columns} data={filteredNotes} />
     </div>
   );
 }
