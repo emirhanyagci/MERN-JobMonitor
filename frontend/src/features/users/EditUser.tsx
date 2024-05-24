@@ -20,7 +20,7 @@ export default function EditUser() {
   const [roles, setRoles] = useState<Roles[]>([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
   const [addUser] = useAddNewUserMutation();
   const [updatedUser] = useUpdateUserMutation();
   const navigate = useNavigate();
@@ -112,8 +112,6 @@ export default function EditUser() {
               checked={active}
               onCheckedChange={() => setActive((a) => !a)}
               id="active"
-              defaultChecked={isEditing ? user.active : false}
-              disabled={!isEditing}
             />
           </div>
         </div>

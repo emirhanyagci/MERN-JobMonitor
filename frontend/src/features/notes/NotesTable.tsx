@@ -61,7 +61,7 @@ export default function NotesTable() {
     );
   }
 
-  if (isError && error.status !== 400) {
+  if (isError && "status" in error && error.status !== 400) {
     let errorMessage = "Something went wrong";
     if ("status" in error && (error.status === 401 || error.status === 403)) {
       errorMessage = (error as { data: { message: string } }).data.message;
@@ -69,8 +69,8 @@ export default function NotesTable() {
     return <ErrorMessage message={errorMessage} />;
   }
 
-  if (!isAdmin && !isManager) {
-    filteredNotes = notes.filter((note: Note) => {
+  if (!isAdmin && !isManager && filteredNotes.length) {
+    filteredNotes = notes?.filter((note: Note) => {
       return username === note.user.username;
     });
   }

@@ -9,6 +9,7 @@ import EditUser from "./features/users/EditUser";
 import EditNote from "./features/notes/EditNote";
 import RequireAuth from "./features/auth/RequireAuth";
 import PersistLogin from "./features/auth/PersistLogin";
+import { Toaster } from "./components/ui/toaster";
 function App() {
   return (
     <ThemeProvider defaultTheme="dark">
@@ -39,6 +40,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <Toaster />
     </ThemeProvider>
   );
 }

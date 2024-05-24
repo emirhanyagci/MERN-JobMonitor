@@ -11,14 +11,24 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useDeleteUserMutation } from "./userApi";
+import { useToast } from "@/components/ui/use-toast";
 export default function UserActions({ user }: { user: User }) {
   const navigate = useNavigate();
   const [deleteUser] = useDeleteUserMutation();
+  const { toast } = useToast();
 
   function deleteHandler() {
-    deleteUser({ id: user._id }).catch((err) => {
-      console.log(err);
-    });
+    deleteUser({ id: user._id })
+      .unwrap()
+      .catch((err) => {
+        if (err.data.code === "USER_ASSIGNED_JOB") {
+          toast({
+            title: "User cannot be deleted",
+            description:
+              "The user is assigned to a job and cannot be deleted until the job is completed or removed",
+          });
+        }
+      });
   }
   return (
     <DropdownMenu>

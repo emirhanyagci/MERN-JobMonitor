@@ -19,9 +19,13 @@ export default function UserOptions({
 }) {
   const { data: users, isSuccess, isLoading, isError } = useGetUsersQuery();
   let mappedUsers;
+  let filteredUsers = [] as User[];
+  if (users?.length) {
+    filteredUsers = users.filter((user) => user.active);
+  }
 
   if (isSuccess) {
-    mappedUsers = users.map(({ _id, username }) => {
+    mappedUsers = filteredUsers.map(({ _id, username }) => {
       return { id: _id, username };
     });
   }

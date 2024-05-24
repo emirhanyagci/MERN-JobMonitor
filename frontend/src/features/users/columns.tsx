@@ -16,9 +16,16 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "roles",
-    header: "roles",
+    header: "Roles",
   },
-
+  {
+    accessorKey: "active",
+    header: "Active",
+    cell: ({ row }) => {
+      const user: User = row.original;
+      return user.active ? "Active" : "Inactive";
+    },
+  },
   {
     id: "actions",
     header: "Actions",
