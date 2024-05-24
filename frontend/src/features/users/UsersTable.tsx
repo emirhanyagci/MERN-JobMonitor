@@ -19,6 +19,7 @@ export default function NotesTable() {
     refetchOnFocus: true,
   });
   const navigate = useNavigate();
+  const filteredUsers = users || [];
 
   if (isLoading) {
     return (
@@ -27,7 +28,7 @@ export default function NotesTable() {
       </div>
     );
   }
-  if (isError) {
+  if (isError && error.status !== 400) {
     let errorMessage = "Somethink went wrong";
     console.log(error);
 
@@ -53,7 +54,7 @@ export default function NotesTable() {
           Add User
         </Button>
       </div>
-      <DataTable columns={columns} data={users as User[]} />
+      <DataTable columns={columns} data={filteredUsers as User[]} />
     </div>
   );
 }

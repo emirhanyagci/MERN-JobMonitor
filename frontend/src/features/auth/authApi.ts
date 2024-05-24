@@ -24,6 +24,7 @@ export const authApi = createApi({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
+          localStorage.removeItem("persist");
           dispatch(logOut());
           setTimeout(() => {
             dispatch(noteApi.util.resetApiState());

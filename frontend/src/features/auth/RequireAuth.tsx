@@ -8,7 +8,6 @@ export default function RequireAuth({
   allowedRoles: Roles[];
 }) {
   const { roles } = useAuth();
-  console.log("require auth");
 
   const haveAccess = allowedRoles.some((role: Roles) => {
     return roles.includes(role);

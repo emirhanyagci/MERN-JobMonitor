@@ -43,10 +43,12 @@ exports.login = asyncHandler(async (req, res, next) => {
     process.env.REFRESH_TOKEN_SECRET,
     { expiresIn: "7d" }
   );
+
   res.cookie("jwt", refreshToken, {
     httpOnly: true,
     sameSite: "None",
-    maxAge: 1000 * 60 * 60 * 24 * 7,
+    secure: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
   res.json({ accessToken });
@@ -92,6 +94,6 @@ exports.refresh = asyncHandler(async (req, res, next) => {
 exports.logout = asyncHandler(async (req, res, next) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204); //No content
-  res.clearCookie("jwt", { httpOnly: true, sameSite: "None" });
+  res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
   res.json({ message: "Cookie cleared" });
 });

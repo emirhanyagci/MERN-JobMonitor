@@ -16,3 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 );
 
 // tablelara sorting ve pagination ekleyebilirsin
+// backend icin permission ekle
+// add toasts like user assigned to job you can't delete
+// add user active functionality
+// at /dash show /notes

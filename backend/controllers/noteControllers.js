@@ -9,7 +9,7 @@ exports.getAllNotes = asyncHandler(async (req, res, next) => {
   const notes = await Note.find().populate("user");
   if (!notes.length) {
     return res.status(400).json({
-      message: "No note found ",
+      message: "No note found",
     });
   }
   return res.json(notes);

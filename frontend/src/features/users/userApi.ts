@@ -35,7 +35,6 @@ const baseQueryWithReauth: BaseQueryFn<
     );
     if (refreshResult.data) {
       // store the new token
-      console.log(refreshResult);
 
       api.dispatch(setCredentials(refreshResult.data.accessToken));
       // retry the initial query

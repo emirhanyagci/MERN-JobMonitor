@@ -50,8 +50,6 @@ export default function EditNote() {
           console.log(err);
         });
     } else {
-      console.log(text);
-
       addNote({ user: userId, title, text })
         .then(() => {
           navigate("..");

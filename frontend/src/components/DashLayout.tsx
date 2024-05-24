@@ -3,8 +3,6 @@ import NavBar from "@/components/NavBar";
 import SideBar from "./SideBar";
 
 export default function DashLayout() {
-  console.log("aLO?");
-
   return (
     <div className="h-svh flex">
       <SideBar />

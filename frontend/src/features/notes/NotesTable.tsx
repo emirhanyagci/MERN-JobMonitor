@@ -35,7 +35,6 @@ export default function NotesTable() {
     data: notes,
     isLoading,
     isError,
-    isSuccess,
     error,
   } = useGetNotesQuery({
     pollingInterval: 15000,
@@ -44,6 +43,8 @@ export default function NotesTable() {
   });
   const { username, isAdmin, isManager } = useAuth();
   const navigate = useNavigate();
+
+  let filteredNotes = notes || [];
 
   // if (notes?.length) {
   //   parsedNotes = notes.map((note: Note) => {
@@ -59,20 +60,15 @@ export default function NotesTable() {
       </div>
     );
   }
-  if (isError) {
+
+  if (isError && error.status !== 400) {
     let errorMessage = "Something went wrong";
-    if (
-      "status" in error &&
-      (error.status === 400 || error.status === 401 || error.status === 403)
-    ) {
+    if ("status" in error && (error.status === 401 || error.status === 403)) {
       errorMessage = (error as { data: { message: string } }).data.message;
     }
     return <ErrorMessage message={errorMessage} />;
   }
-  if (!isSuccess) {
-    return <ErrorMessage message="Something went wrong" />;
-  }
-  let filteredNotes = notes;
+
   if (!isAdmin && !isManager) {
     filteredNotes = notes.filter((note: Note) => {
       return username === note.user.username;
