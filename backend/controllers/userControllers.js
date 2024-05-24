@@ -98,6 +98,7 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
   const note = await Note.findOne({ user: id }).lean().exec();
   if (note) {
     return res.status(400).json({
+      code: "USER_ASSIGNED_JOB",
       message: "User has assigned to job",
     });
   }

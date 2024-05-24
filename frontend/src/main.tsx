@@ -14,7 +14,3 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </Provider>
   </React.StrictMode>
 );
-
-// tablelara sorting ve pagination ekleyebilirsin
-// backend icin permission ekle
-// at /dash show /notes

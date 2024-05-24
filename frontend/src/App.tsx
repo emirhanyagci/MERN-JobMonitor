@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomeLayout from "@/components/HomeLayout";
 import Home from "@/pages/Home";
 import Dash from "@/pages/Dash";
@@ -23,10 +23,11 @@ function App() {
               }
             >
               <Route path="dash" element={<DashLayout />}>
+                <Route index element={<Navigate to="notes" replace />} />
                 <Route path="notes" element={<Dash />}>
-                  // this route for modal
                   <Route path=":noteId" element={<EditNote />}></Route>
                 </Route>
+
                 <Route
                   element={<RequireAuth allowedRoles={["Manager", "Admin"]} />}
                 >

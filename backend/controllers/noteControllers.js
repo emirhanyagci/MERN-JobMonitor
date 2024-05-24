@@ -1,5 +1,5 @@
 const Note = require("../models/Note");
-//const User = require("../models/User");
+const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 // @desc Get all notes
 // @route GET /notes
@@ -23,6 +23,12 @@ exports.createNewNote = asyncHandler(async (req, res, next) => {
   console.log(user, title, text);
   if (!user || !title || !text) {
     return res.status(400).json({ message: "All fields are required" });
+  }
+  const foundUser = await User.findById(user).exec();
+  if (foundUser.active === false) {
+    return res.status(400).json({
+      message: "User is inactive",
+    });
   }
   const createdNote = await Note.create({ user, title, text });
   if (!createdNote) {
