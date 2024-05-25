@@ -10,14 +10,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "@/features/auth/authApi";
 import { LoadingSpinner } from "./LoadingSpinner";
 import useAuth from "@/features/auth/useAuth";
 export default function NavBar() {
   const { username, status, isManager, isAdmin } = useAuth();
+  const navigate = useNavigate();
   const [logout, { isLoading, isError }] = useLogoutMutation();
-
+  function logoutHandler() {
+    navigate("/");
+    logout(undefined);
+  }
   return (
     <nav className="w-full p-3 flex justify-between border-b md:justify-end">
       <Sheet>
@@ -56,7 +60,7 @@ export default function NavBar() {
           </footer>
         </SheetContent>
       </Sheet>
-      <Button onClick={logout} variant="ghost" className="text-md">
+      <Button onClick={logoutHandler} variant="ghost" className="text-md">
         {isLoading ? <LoadingSpinner /> : isError ? "Failed" : <LogOut />}
       </Button>
     </nav>

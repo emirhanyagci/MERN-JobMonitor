@@ -2,14 +2,13 @@ import { useSelector } from "react-redux";
 import { useRefreshMutation } from "./authApi";
 import { selectCurrentToken } from "./authSlice";
 import usePersist from "./usePersist";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Navigate, Outlet } from "react-router-dom";
 
 export default function PersistLogin() {
   const [persist] = usePersist();
   const token = useSelector(selectCurrentToken);
-  const [isRefreshing, setIsRefreshing] = useState(true);
   const [refresh, { isLoading, isSuccess, isError, isUninitialized }] =
     useRefreshMutation();
 
@@ -20,7 +19,6 @@ export default function PersistLogin() {
       } catch (err) {
         console.error(err);
       }
-      setIsRefreshing(false);
     }
 
     if (!token && persist) {
@@ -30,7 +28,6 @@ export default function PersistLogin() {
 
   if (!persist && token) return <Outlet />;
   if (!token && !persist) return <Navigate to="/" />;
-  if (!token && !isRefreshing) return <Navigate to="/" />;
   if (isLoading) return <LoadingSpinner className="w-16 h-16 m-5" />;
   if (isError) {
     return <Navigate to="/" />;
