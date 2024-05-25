@@ -60,7 +60,9 @@ export default function Login() {
         )}
 
         <div className="grid gap-2">
-          <Label htmlFor="username">Username</Label>
+          <Label htmlFor="username">
+            Username ("employee","manager","admin")
+          </Label>
           <Input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -71,7 +73,7 @@ export default function Login() {
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">Password (123456)</Label>
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
