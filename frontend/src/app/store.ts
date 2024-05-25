@@ -17,7 +17,7 @@ export const store = configureStore({
       authApi.middleware
     ),
 
-  devTools: true,
+  devTools: import.meta.env.VITE_ENV === "production" ? false : true,
 });
 export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore["getState"]>;

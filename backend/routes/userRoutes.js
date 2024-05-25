@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   getAllUser,
   createNewUser,
-  uptadeUser,
+  updateUser,
   deleteUser,
 } = require("../controllers/userControllers");
 const verifyJWT = require("../middleware/verifyJWT");
@@ -14,6 +14,6 @@ router
   .route("/")
   .get(getAllUser)
   .post(createNewUser)
-  .patch(uptadeUser)
+  .patch(updateUser)
   .delete(deleteUser);
 module.exports = router;

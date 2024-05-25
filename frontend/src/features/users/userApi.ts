@@ -75,7 +75,9 @@ export const userApi = createApi({
         method: "PATCH",
         body: updatedUser,
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "users", id: arg.id }],
+      invalidatesTags: (_result, _error, arg) => [
+        { type: "users", id: arg.id },
+      ],
     }),
     deleteUser: builder.mutation({
       query: ({ id }) => ({
@@ -83,7 +85,9 @@ export const userApi = createApi({
         method: "DELETE",
         body: { id },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "users", id: arg.id }],
+      invalidatesTags: (_result, _error, arg) => [
+        { type: "users", id: arg.id },
+      ],
     }),
   }),
 });

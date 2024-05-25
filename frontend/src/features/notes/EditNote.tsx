@@ -34,7 +34,7 @@ export default function EditNote() {
     setTitle(note.title);
     setText(note.text);
     setCompleted(note.completed);
-  }, []);
+  }, [isEditing]);
   function openChangeHandler(open: boolean) {
     open ? null : navigate("..");
   }
