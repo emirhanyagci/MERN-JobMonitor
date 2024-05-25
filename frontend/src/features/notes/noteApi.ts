@@ -75,7 +75,9 @@ export const noteApi = createApi({
         method: "PATCH",
         body: note,
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "notes", id: arg.id }],
+      invalidatesTags: (_result, _error, arg) => [
+        { type: "notes", id: arg.id },
+      ],
     }),
     deleteNote: builder.mutation({
       query: ({ id }) => ({
@@ -83,7 +85,9 @@ export const noteApi = createApi({
         method: "DELETE",
         body: { id },
       }),
-      invalidatesTags: (result, err, arg) => [{ type: "notes", id: arg.id }],
+      invalidatesTags: (_result, _error, arg) => [
+        { type: "notes", id: arg.id },
+      ],
     }),
   }),
 });

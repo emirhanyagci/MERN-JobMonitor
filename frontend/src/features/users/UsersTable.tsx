@@ -28,7 +28,7 @@ export default function NotesTable() {
       </div>
     );
   }
-  if (isError && error.status !== 400) {
+  if (isError && "status" in error && error.status !== 400) {
     let errorMessage = "Somethink went wrong";
     console.log(error);
 

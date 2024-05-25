@@ -21,7 +21,7 @@ export const authApi = createApi({
         url: "/logout",
         method: "POST",
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
           localStorage.removeItem("persist");
@@ -40,7 +40,7 @@ export const authApi = createApi({
         url: "/refresh",
         method: "GET",
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           const { accessToken } = data;
