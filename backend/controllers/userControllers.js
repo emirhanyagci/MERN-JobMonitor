@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Note = require("../models/Note");
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
+const ROLES = require("../config/roles");
 
 // description off express-async-handler package
 // i use this package for don't put try catch each middleware this function gonna wrap the all middleware with try catch block
@@ -132,5 +133,5 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
   });
 });
 function isEmployee(user) {
-  return user.roles.length === 1 && user.roles.includes("Employee");
+  return user.roles.length === 1 && user.roles.includes(ROLES.EMPLOYEE);
 }

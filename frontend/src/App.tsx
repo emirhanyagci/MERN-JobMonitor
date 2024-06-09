@@ -10,6 +10,7 @@ import EditNote from "./features/notes/EditNote";
 import RequireAuth from "./features/auth/RequireAuth";
 import PersistLogin from "./features/auth/PersistLogin";
 import { Toaster } from "./components/ui/toaster";
+import { RoleEnum } from "./constants/roles";
 function App() {
   return (
     <ThemeProvider defaultTheme="dark">
@@ -19,7 +20,13 @@ function App() {
           <Route element={<PersistLogin />}>
             <Route
               element={
-                <RequireAuth allowedRoles={["Employee", "Manager", "Admin"]} />
+                <RequireAuth
+                  allowedRoles={[
+                    RoleEnum.Employee,
+                    RoleEnum.Manager,
+                    RoleEnum.Admin,
+                  ]}
+                />
               }
             >
               <Route path="dash" element={<DashLayout />}>
@@ -29,7 +36,11 @@ function App() {
                 </Route>
 
                 <Route
-                  element={<RequireAuth allowedRoles={["Manager", "Admin"]} />}
+                  element={
+                    <RequireAuth
+                      allowedRoles={[RoleEnum.Manager, RoleEnum.Admin]}
+                    />
+                  }
                 >
                   <Route path="users" element={<Users />}>
                     // this route for modal

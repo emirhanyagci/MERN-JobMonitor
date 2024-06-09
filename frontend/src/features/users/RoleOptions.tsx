@@ -1,13 +1,13 @@
 import { Badge } from "@/components/ui/badge";
-import { Roles } from "./columns";
+import { Role, RoleEnum } from "@/constants/roles";
 export default function RoleOptions({
   roles,
   setRoles,
 }: {
-  roles: Roles[];
-  setRoles: (roles: Roles[]) => void;
+  roles: Role[];
+  setRoles: (roles: Role[]) => void;
 }) {
-  function onRoleSwitchHandler(role: Roles) {
+  function onRoleSwitchHandler(role: Role) {
     if (!roles.includes(role)) {
       setRoles([...roles, role]);
     } else {
@@ -19,27 +19,27 @@ export default function RoleOptions({
     <>
       <Badge
         onClick={() => {
-          onRoleSwitchHandler("Employee");
+          onRoleSwitchHandler(RoleEnum.Employee);
         }}
-        variant={roles.includes("Employee") ? "default" : "secondary"}
+        variant={roles.includes(RoleEnum.Employee) ? "default" : "secondary"}
         className="cursor-pointer"
       >
         Employee
       </Badge>
       <Badge
         onClick={() => {
-          onRoleSwitchHandler("Manager");
+          onRoleSwitchHandler(RoleEnum.Manager);
         }}
-        variant={roles.includes("Manager") ? "default" : "secondary"}
+        variant={roles.includes(RoleEnum.Manager) ? "default" : "secondary"}
         className="cursor-pointer"
       >
         Manager
       </Badge>
       <Badge
         onClick={() => {
-          onRoleSwitchHandler("Admin");
+          onRoleSwitchHandler(RoleEnum.Admin);
         }}
-        variant={roles.includes("Admin") ? "default" : "secondary"}
+        variant={roles.includes(RoleEnum.Admin) ? "default" : "secondary"}
         className="cursor-pointer"
       >
         Admin

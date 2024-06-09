@@ -1,16 +1,14 @@
 const Note = require("../models/Note");
 const User = require("../models/User");
+const ROLES = require("../config/roles");
 const asyncHandler = require("express-async-handler");
 // @desc Get all notes
 // @route GET /notes
 // @access Private
 
 exports.getAllNotes = asyncHandler(async (req, res, next) => {
-  const user = res.user;
-  const isEmployee = user.roles.length === 1 && user.roles.includes("Employee");
-
   const notes = await Note.find(
-    isEmployee ? { user: user.userId } : null
+    isEmployee(res.user) ? { user: res.user.userId } : null
   ).populate("user");
   if (!notes.length) {
     return res.status(400).json({
@@ -91,3 +89,6 @@ exports.deleteNote = asyncHandler(async (req, res, next) => {
   res.json({ message: `${removedNote.title} deleted` });
 });
 // add eslint to project
+function isEmployee(user) {
+  return user.roles.length === 1 && user.roles.includes(ROLES.EMPLOYEE);
+}

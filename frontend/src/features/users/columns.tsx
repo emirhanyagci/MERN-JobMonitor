@@ -1,11 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table";
 import UserActions from "./UserActions";
-
-export type Roles = "Employee" | "Manager" | "Admin";
+import { Role } from "@/constants/roles";
 export type User = {
   _id: string;
   username: string;
-  roles: Roles[];
+  roles: Role[];
   active: boolean;
 };
 
