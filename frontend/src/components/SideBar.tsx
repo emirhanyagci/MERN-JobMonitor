@@ -5,7 +5,7 @@ import useAuth from "@/features/auth/useAuth";
 export default function SideBar() {
   const { username, status, isManager, isAdmin } = useAuth();
   return (
-    <aside className="p-8 max-w-80 space-y-5 border-r hidden flex-col justify-between md:flex">
+    <aside className="p-8 max-w-80 space-y-5 border-r hidden flex-col justify-between md:!flex">
       <div className="space-y-2">
         <header className="tracking-widest text-2xl whitespace-nowrap">
           Job Monitor

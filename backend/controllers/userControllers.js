@@ -97,6 +97,22 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
   if (!id) {
     return res.status(400).json({ message: "Id is required" });
   }
+  const user = await User.findById(id).exec();
+  if (!user) {
+    // if not found user
+    return res.status(400).json({ message: "User not found" });
+  }
+  // check is default user
+  if (
+    user.username === "employee" ||
+    user.username === "admin" ||
+    user.username === "manager"
+  ) {
+    return res.status(403).json({
+      code: "DEFAULT_USER_DELETION_ATTEMPTED",
+      message: "Default user are not deletable",
+    });
+  }
   //check is user assigned to any job
   const note = await Note.findOne({ user: id }).lean().exec();
   if (note) {
@@ -106,11 +122,8 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
     });
   }
 
-  const user = await User.findByIdAndDelete(id).exec();
-  if (!user) {
-    // if not found user
-    return res.status(400).json({ message: "User not found" });
-  }
-
-  res.json({ message: `Username ${user.username} Id ${user._id} deleted` });
+  const deletedUser = await User.findByIdAndDelete(id).exec();
+  res.json({
+    message: `Username ${deletedUser.username} Id ${deletedUser._id} deleted`,
+  });
 });

@@ -21,7 +21,12 @@ export default function UserActions({ user }: { user: User }) {
     deleteUser({ id: user._id })
       .unwrap()
       .catch((err) => {
-        if (err.data.code === "USER_ASSIGNED_JOB") {
+        if (err.data.code === "DEFAULT_USER_DELETION_ATTEMPTED") {
+          toast({
+            title: "User cannot be deleted",
+            description: err.data.message,
+          });
+        } else if (err.data.code === "USER_ASSIGNED_JOB") {
           toast({
             title: "User cannot be deleted",
             description:
