@@ -11,10 +11,9 @@ const asyncHandler = require("express-async-handler");
 // @route GET /users
 // @access Private
 exports.getAllUser = asyncHandler(async (req, res, next) => {
-  const user = res.user;
-  const isEmployee = user.roles.length === 1 && user.roles.includes("Employee");
-
-  const users = await User.find(isEmployee ? { username: user.username } : null)
+  const users = await User.find(
+    isEmployee(res.user) ? { username: res.user.username } : null
+  )
     .select("-password")
     .lean();
   if (!users.length) {
@@ -27,6 +26,11 @@ exports.getAllUser = asyncHandler(async (req, res, next) => {
 // @route POST /users
 // @access Private
 exports.createNewUser = asyncHandler(async (req, res, next) => {
+  if (isEmployee(res.user)) {
+    return res.status(401).json({
+      message: "Forbidden",
+    });
+  }
   const { username, password, roles } = req.body;
   if (!username || !password || !Array.isArray(roles) || !roles.length) {
     return res.status(400).json({ message: "All field are required" });
@@ -127,3 +131,6 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
     message: `Username ${deletedUser.username} Id ${deletedUser._id} deleted`,
   });
 });
+function isEmployee(user) {
+  return user.roles.length === 1 && user.roles.includes("Employee");
+}
