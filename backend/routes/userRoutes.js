@@ -7,6 +7,7 @@ const {
   deleteUser,
 } = require("../controllers/userControllers");
 const verifyJWT = require("../middleware/verifyJWT");
+
 // all note operates required to be authed
 router.use(verifyJWT);
 

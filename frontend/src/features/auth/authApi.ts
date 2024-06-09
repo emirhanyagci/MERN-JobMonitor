@@ -2,6 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { noteApi } from "../notes/noteApi";
 import { userApi } from "../users/userApi";
 import { logOut, setCredentials } from "./authSlice";
+console.log(import.meta.env.VITE_BASE_URL);
+
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({

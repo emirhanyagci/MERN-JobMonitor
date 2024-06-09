@@ -11,7 +11,12 @@ const asyncHandler = require("express-async-handler");
 // @route GET /users
 // @access Private
 exports.getAllUser = asyncHandler(async (req, res, next) => {
-  const users = await User.find().select("-password").lean();
+  const user = res.user;
+  const isEmployee = user.roles.length === 1 && user.roles.includes("Employee");
+
+  const users = await User.find(isEmployee ? { username: user.username } : null)
+    .select("-password")
+    .lean();
   if (!users.length) {
     return res.status(400).json({ message: "No user found" });
   }

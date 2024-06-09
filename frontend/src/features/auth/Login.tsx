@@ -17,12 +17,13 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
 import { useNavigate } from "react-router-dom";
 import usePersist from "./usePersist";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [persist, setPersist] = usePersist();
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   async function loginHandler() {
@@ -92,8 +93,8 @@ export default function Login() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={loginHandler} className="w-full">
-          Sign in
+        <Button disabled={isLoading} onClick={loginHandler} className="w-full">
+          {isLoading ? <LoadingSpinner /> : "Sign in"}
         </Button>
       </CardFooter>
     </Card>
