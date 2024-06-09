@@ -27,6 +27,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
   const accessToken = jwt.sign(
     {
+      userId: foundUser._id,
       username: foundUser.username,
       roles: foundUser.roles,
     },
@@ -37,6 +38,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   );
   const refreshToken = jwt.sign(
     {
+      userId: foundUser._id,
       username: foundUser.username,
       roles: foundUser.roles,
     },
@@ -77,6 +79,7 @@ exports.refresh = asyncHandler(async (req, res, next) => {
 
       const accessToken = jwt.sign(
         {
+          userId: foundUser._id,
           username: foundUser.username,
           roles: foundUser.roles,
         },
