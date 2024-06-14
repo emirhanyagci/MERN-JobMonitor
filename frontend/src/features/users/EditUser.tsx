@@ -10,14 +10,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Roles } from "./columns";
+import { Role } from "@/constants/roles";
 
 import RoleOptions from "./RoleOptions";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAddNewUserMutation, useUpdateUserMutation } from "./userApi";
 export default function EditUser() {
-  const [roles, setRoles] = useState<Roles[]>([]);
+  const [roles, setRoles] = useState<Role[]>([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [active, setActive] = useState(true);
