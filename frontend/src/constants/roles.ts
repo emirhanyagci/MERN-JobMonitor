@@ -4,7 +4,6 @@ export const ROLES = {
   ADMIN: "Admin",
 } as const;
 export type Role = (typeof ROLES)[keyof typeof ROLES];
-console.log(typeof ROLES);
 
 export enum RoleEnum {
   Employee = "Employee",

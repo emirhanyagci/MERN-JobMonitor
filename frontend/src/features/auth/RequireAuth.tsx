@@ -1,16 +1,16 @@
 import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "./useAuth";
-import { Roles } from "../users/columns";
+import { Role } from "@/constants/roles";
 
 export default function RequireAuth({
   allowedRoles,
 }: {
-  allowedRoles: Roles[];
+  allowedRoles: Role[];
 }) {
   const { roles } = useAuth();
 
-  const haveAccess = allowedRoles.some((role: Roles) => {
-    return roles.includes(role);
+  const haveAccess = allowedRoles.some((role: Role) => {
+    return roles.includes(role as never);
   });
   if (haveAccess) return <Outlet />;
   <Navigate to="/" replace />;
